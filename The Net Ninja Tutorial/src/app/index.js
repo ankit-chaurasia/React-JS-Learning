@@ -214,7 +214,58 @@ var ReactDOM = require('react-dom');
 
 require('./css/index.css');
 
-// Module required
+// // Module required
+// var TodoItems = require('./todoItems')
+// var AddItems = require('./addItems');
+// var ToDoComponent = React.createClass({
+//     getInitialState: function () {
+//         return {
+//             todos: ['wash up', 'eat some cheese', 'take a nap', 'buy flowers']
+//         }
+//     },
+//     render: function () {
+//         var todos = this.state.todos;
+//         todos = todos.map((item, index) => {
+//             return (<TodoItems item={item} key={index} onDelete={this.onDelete} />)
+//         });
+//         return (
+//             <div id="todo-list">
+//                 <p onClick={this.clicked}>The busiest people have the most leisure</p>
+//                 <ul>
+//                     {todos}
+//                 </ul>
+//                 <AddItems onAdd={this.onAdd}/>
+//             </div>
+//         );
+//     },
+//     clicked: function () {
+//         console.log("you clicked me");
+//     },
+//     onDelete: function (item) {
+//         var updateTodos = this.state.todos.filter((val, index) => item !== val);
+//         this.setState({
+//             todos: updateTodos
+//         });
+//     },
+//     onAdd: function(item){
+//         var updatedTodos = this.state.todos;
+//         updatedTodos.push(item);
+//         this.setState({
+//             todos: updatedTodos
+//         });
+//     }
+// });
+
+
+// Put component into html page
+// ReactDOM.render(<ToDoComponent />, document.getElementById('todo-wrapper'));
+
+
+/**
+ * React Tutorial #11 Component Life-cycle Methos
+ */
+
+ // Module required
 var TodoItems = require('./todoItems')
 var AddItems = require('./addItems');
 var ToDoComponent = React.createClass({
@@ -253,9 +304,23 @@ var ToDoComponent = React.createClass({
         this.setState({
             todos: updatedTodos
         });
+    },
+
+    // Life-cycle functions
+    componentWillMount: function(){
+        // Executes just before render method
+        console.log("componentWillMount");
+    },
+    componentDidMount: function(){
+        // Executes just after render method
+        console.log("componentDidMount");
+        // Good place for grabbing any external data
+    },
+    componentWillUpdate: function(){
+        // Executes if there is a change in dom
+        console.log("componentWillUpdate");
     }
 });
-
 
 // Put component into html page
 ReactDOM.render(<ToDoComponent />, document.getElementById('todo-wrapper'));
