@@ -12,14 +12,22 @@ var template = (
         <h2>This is some info</h2>
     </div>
 );
+function getLocation(location){
+    if(location){
+        return <p>Location: {location}</p>;
+    }
+}
+var user = {
+    userName: "Ankit Chaurasia",
+    userAge: 26,
+    location: "Hyderabad"
+};
 
-var userName = "Ankit Chaurasia";
-var userAge = 26;
 var templateTwo = (
     <div>
-        <h1>{userName + "!!"}</h1>
-        <p>Age: {userAge}</p>
-        <p>Location: Hyderabad</p>
+        <h1>{user.userName ? user.userName : 'Anonymous'}</h1>
+        {(user.userAge && user.userAge>= 18) && <p>Age: {user.userAge}</p>}
+        {getLocation(user.location)}
     </div>
 );
 var appRoot = document.getElementById('app');
