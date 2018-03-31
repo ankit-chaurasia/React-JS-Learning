@@ -1,21 +1,19 @@
-'use strict';
-
-var add = function add(a, b) {
+const add = function (a, b) {
     console.log(arguments);
     return a + b;
 };
 console.log(add(3, 4));
 // arguments in arrow function
-var addArow = function addArow(a, b) {
+const addArow = (a, b) => {
     // console.log(arguments); // ReferenceError: arguments is not defined
     return a + b;
 };
 console.log(addArow(3, 4));
 
-var user = {
+const user = {
     name: "Ankit",
     cities: ['Jhansi', 'Hyderabad'],
-    printPlacesLived: function printPlacesLived() {
+    printPlacesLived: function () {
         // here this is bound to user object
         console.log(this.name); // Ankit
         console.log(this.cities); // ["Jhansi", "Hyderabad"]
@@ -30,16 +28,12 @@ var user = {
 user.printPlacesLived();
 
 // In Arrow function this is bound to the enclosing context
-var user2 = {
+const user2 = {
     name: "Ankit",
     cities: ['Jhansi', 'Hyderabad'],
-    printPlacesLived: function printPlacesLived() {
-        var _this = this;
-
+    printPlacesLived: function () {
         // here this is bound to user object
-        return this.cities.map(function (city) {
-            return _this.name + " has lived in " + city;
-        });
+        return this.cities.map((city)=> this.name + " has lived in " + city);
         // this.cities.forEach( (city) => {
         //     // here this is no longer bound to user because it is an anonymous function
         //     // workaround: assigining this value in a variable and child function has access to its parent function
