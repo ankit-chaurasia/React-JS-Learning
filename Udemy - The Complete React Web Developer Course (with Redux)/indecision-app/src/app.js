@@ -1,33 +1,20 @@
-console.log("app.js is running");
-
-// JSX - JavaScript XML
-// var template = React.createElement(
-//     "h1",
-//     {"id": "someid"},
-//     "Hello World!!"
-// );
-var template = (
-    <div>
-        <p>This is JSX from app.js Does this change</p>
-        <h2>This is some info</h2>
-    </div>
-);
-function getLocation(location){
-    if(location){
-        return <p>Location: {location}</p>;
-    }
-}
-var user = {
-    userName: "Ankit Chaurasia",
-    userAge: 26,
-    location: "Hyderabad"
+let count = 0;
+const someId = "myIdHere";
+const addOne = () => {
+    console.log('addOne');
 };
-
-var templateTwo = (
+const minusOne = () => {
+    console.log('minusOne');
+};
+const reset = () => {
+    console.log('reset');
+}
+const templateTwo = (
     <div>
-        <h1>{user.userName ? user.userName : 'Anonymous'}</h1>
-        {(user.userAge && user.userAge>= 18) && <p>Age: {user.userAge}</p>}
-        {getLocation(user.location)}
+        <h1>Count: {count}</h1>
+        <button id={someId} className="button" onClick={addOne}>+1</button>
+        <button className="button" onClick={minusOne}>-1</button>
+        <button className="button" onClick={reset}>Reset</button>
     </div>
 );
 var appRoot = document.getElementById('app');
