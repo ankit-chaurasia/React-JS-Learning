@@ -1,21 +1,31 @@
 let count = 0;
 const someId = "myIdHere";
 const addOne = () => {
-    console.log('addOne');
+    count++;
+    renderCounterApp();
+    console.log('addOne', count);
 };
 const minusOne = () => {
-    console.log('minusOne');
+    count--;
+    renderCounterApp();
+    console.log('minusOne', count);
 };
 const reset = () => {
-    console.log('reset');
+    count = 0;
+    renderCounterApp();
+    console.log('reset', count);
 }
-const templateTwo = (
-    <div>
-        <h1>Count: {count}</h1>
-        <button id={someId} className="button" onClick={addOne}>+1</button>
-        <button className="button" onClick={minusOne}>-1</button>
-        <button className="button" onClick={reset}>Reset</button>
-    </div>
-);
+
 var appRoot = document.getElementById('app');
-ReactDOM.render(templateTwo, appRoot);
+const renderCounterApp = () => {
+    const templateTwo = (
+        <div>
+            <h1>Count: {count}</h1>
+            <button id={someId} className="button" onClick={addOne}>+1</button>
+            <button className="button" onClick={minusOne}>-1</button>
+            <button className="button" onClick={reset}>Reset</button>
+        </div>
+    );
+    ReactDOM.render(templateTwo, appRoot);
+};
+renderCounterApp();
