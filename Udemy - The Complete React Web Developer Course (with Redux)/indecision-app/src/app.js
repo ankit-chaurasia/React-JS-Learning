@@ -1,5 +1,3 @@
-"use strict";
-
 console.log("app.js is running");
 
 // JSX - JavaScript XML
@@ -8,10 +6,6 @@ console.log("app.js is running");
 //     {"id": "someid"},
 //     "Hello World!!"
 // );
-var template = React.createElement(
-  "p",
-  null,
-  "This is JSX from app.js Does this change"
-);
+var template = <p>This is JSX from app.js Does this change</p>
 var appRoot = document.getElementById('app');
 ReactDOM.render(template, appRoot);
