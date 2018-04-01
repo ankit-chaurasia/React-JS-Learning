@@ -1,31 +1,45 @@
-let count = 0;
-const someId = "myIdHere";
-const addOne = () => {
-    count++;
-    renderCounterApp();
-    console.log('addOne', count);
+var userName = "Ankit Chaurasia";
+var userAge = 26;
+const app = {
+    title: "Indecision App",
+    subtitle: "Put yourself in the hands of a computer",
+    options: ["One", 'Two']
 };
-const minusOne = () => {
-    count--;
-    renderCounterApp();
-    console.log('minusOne', count);
+
+const onFormSubmit = (e) => {
+    e.preventDefault(); // Stop full page refresh on submitting form
+    const option = e.target.elements.option.value;
+    if(option){
+        app.options.push(option);
+        e.target.elements.option.value = '';
+        rerenderForm();
+    }
 };
-const reset = () => {
-    count = 0;
-    renderCounterApp();
-    console.log('reset', count);
-}
+
+const onRemoveAll = () => {
+    app.options = [];
+    rerenderForm();
+};
 
 var appRoot = document.getElementById('app');
-const renderCounterApp = () => {
-    const templateTwo = (
+const rerenderForm = () => {
+    var templateTwo = (
         <div>
-            <h1>Count: {count}</h1>
-            <button id={someId} className="button" onClick={addOne}>+1</button>
-            <button className="button" onClick={minusOne}>-1</button>
-            <button className="button" onClick={reset}>Reset</button>
+            <h1>{app.title}</h1>
+            {app.subtitle && <p>{app.subtitle}</p>}
+            <p>{app.options.length > 0 ? 'Here are your options' : 'No options'}</p>
+            <p>Options Length: {app.options.length}</p>
+            <button onClick={onRemoveAll}>Remove All</button>
+            <ol>
+             <li>Item One</li>
+             <li>Item Two</li>
+            </ol>
+            <form onSubmit={onFormSubmit}>
+                 <input type="text" name="option" />
+                 <button>Add Option</button>
+            </form>
         </div>
-    );
-    ReactDOM.render(templateTwo, appRoot);
+     );
+     ReactDOM.render(templateTwo, appRoot);
 };
-renderCounterApp();
+rerenderForm();
