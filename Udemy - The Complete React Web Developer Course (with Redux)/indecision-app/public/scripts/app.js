@@ -24,6 +24,7 @@ var onRemoveAll = function onRemoveAll() {
 };
 
 var appRoot = document.getElementById('app');
+var number = [44, 55, 66];
 var rerenderForm = function rerenderForm() {
     var templateTwo = React.createElement(
         "div",
@@ -57,16 +58,13 @@ var rerenderForm = function rerenderForm() {
         React.createElement(
             "ol",
             null,
-            React.createElement(
-                "li",
-                null,
-                "Item One"
-            ),
-            React.createElement(
-                "li",
-                null,
-                "Item Two"
-            )
+            app.options.map(function (option) {
+                return React.createElement(
+                    "li",
+                    { key: option },
+                    option
+                );
+            })
         ),
         React.createElement(
             "form",
