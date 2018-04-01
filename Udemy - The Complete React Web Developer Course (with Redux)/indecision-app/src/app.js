@@ -21,6 +21,12 @@ const onRemoveAll = () => {
     rerenderForm();
 };
 
+const onMakeDecision = () => {
+    const randonNum = Math.floor(Math.random() * app.options.length);
+    const option = app.options[randonNum];
+    alert(option);
+};
+
 var appRoot = document.getElementById('app');
 const number = [44,55,66];
 const rerenderForm = () => {
@@ -29,7 +35,7 @@ const rerenderForm = () => {
             <h1>{app.title}</h1>
             {app.subtitle && <p>{app.subtitle}</p>}
             <p>{app.options.length > 0 ? 'Here are your options' : 'No options'}</p>
-            <p>Options Length: {app.options.length}</p>
+            <button onClick={onMakeDecision} disabled = {!app.options.length}>What should I do?</button>
             <button onClick={onRemoveAll}>Remove All</button>
             <ol>
              {
