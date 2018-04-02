@@ -1,3 +1,13 @@
+const obj = {
+    name: 'Ankit',
+    getName() {
+        return this.name;
+    }
+};
+console.log(obj.getName());
+const getNameNew = obj.getName.bind(obj);
+console.log("getNameNew: " + getNameNew());
+
 class IndecisionApp extends React.Component {
     render() {
         const title = "Indecision App";
@@ -42,14 +52,21 @@ class Action extends React.Component {
 }
 
 class Options extends React.Component {
-    handleAllRemove() {
-        alert('handleAllRemove');
+    constructor(props) {
+        super(props);
+        this.handleRemoveAll = this.handleRemoveAll.bind(this);
+    }
+
+    handleRemoveAll() {
+        console.log('handleAllRemove: ' + this.props.options); // 'this' is no longer refers to our class instance
+        // To fix above issue, we can use bind method
     }
 
     render() {
         return (  
             <div>
-                <button onClick={this.handleAllRemove}>Remove All</button>
+                {/* <button onClick={this.handleRemoveAll.bind(this)}>Remove All</button> */}
+                <button onClick={this.handleRemoveAll}>Remove All</button>
                 {'Options Length: ' + this.props.options.length} {
                     this.props.options.length && this.props.options.map((optionText) => <Option key={optionText} optionText={optionText} />)
                 }
