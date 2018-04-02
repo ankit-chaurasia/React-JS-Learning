@@ -49,29 +49,47 @@ var Counter = function (_React$Component) {
 
         var _this = _possibleConstructorReturn(this, (Counter.__proto__ || Object.getPrototypeOf(Counter)).call(this, props));
 
-        _this.count = 0;
         _this.handleAddOne = _this.handleAddOne.bind(_this);
         _this.handleMinusOne = _this.handleMinusOne.bind(_this);
         _this.handleReset = _this.handleReset.bind(_this);
+        _this.state = {
+            count: 0 // Step1: Set default state values
+        };
         return _this;
     }
 
     _createClass(Counter, [{
         key: 'handleAddOne',
         value: function handleAddOne() {
-            this.count++;
-            console.log(this.count);
+            // Step3: Change state value bases on event
+            // this.state.count++;
+            // If you directly update state value then component do not re render state value
+            // use this.setState to manipulate state values
+            this.setState(function (prevState) {
+                return {
+                    count: prevState.count + 1
+                };
+            });
+            console.log(this.state);
         }
     }, {
         key: 'handleMinusOne',
         value: function handleMinusOne() {
-            this.count--;
+            this.setState(function (prevState) {
+                return {
+                    count: prevState.count - 1
+                };
+            });
             console.log(this.count);
         }
     }, {
         key: 'handleReset',
         value: function handleReset() {
-            this.count = 0;
+            this.setState(function (prevState) {
+                return {
+                    count: 0
+                };
+            });
             console.log(this.count);
         }
     }, {
@@ -84,7 +102,7 @@ var Counter = function (_React$Component) {
                     'h1',
                     null,
                     'Count: ',
-                    this.count
+                    this.state.count
                 ),
                 React.createElement(
                     'button',
