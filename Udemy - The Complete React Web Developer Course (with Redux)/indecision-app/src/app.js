@@ -4,14 +4,58 @@ class IndecisionApp extends React.Component {
         this.handleDeleteOptions = this.handleDeleteOptions.bind(this);
         this.handlePick = this.handlePick.bind(this);
         this.handleAddOption = this.handleAddOption.bind(this);
+        this.handleDeleteOption = this.handleDeleteOption.bind(this);
         this.state = {
             options: props.options
         };
     }
+
+    /**
+     * Component Lifecycle Methods
+     */
+
+     /**
+      * invoked immediately after a component is mounted to the DOM
+      */
+    componentDidMount() {
+        try {
+            const json = localStorage.getItem('options');
+            const options = JSON.parse(json);
+            if(options) {
+                this.setState(()=> ({options: options}));
+            }
+        } catch (e) {
+            console.log('Error while saving data in local storage');
+        }
+    }
+
+    /**
+     * Fires after the component updates (When props or state values get changed)
+     * Gives two parameter prevProps and prevState
+     */
+    componentDidUpdate(prevProps, prevState) {
+        if(prevState.options.length !== this.state.options.length) {
+            const json = JSON.stringify(this.state.options);
+            localStorage.setItem('options', json);
+            console.log('Save data!!');
+        }
+    }
+
+    /**
+     * Called when a component is being removed from the DOM
+     */
+    componentWillUnmount() {
+        console.log('componentWillUnmount');
+    }
+
     handleDeleteOptions() {
-        this.setState(()=>{
+        this.setState(()=> ({ options: [] }));
+    }
+
+    handleDeleteOption(optionToRemove) {
+        this.setState((prevState) => {
             return {
-                options: []
+                options: prevState.options.filter((option) => optionToRemove !== option)
             };
         });
     }
@@ -22,11 +66,7 @@ class IndecisionApp extends React.Component {
         } else if(this.state.options.indexOf(option) > -1) {
             return 'This option already exist.'
         }
-        this.setState((prevState) => {
-            return {
-                options: prevState.options.concat([option])
-            };
-        });
+        this.setState((prevState) => ({options: prevState.options.concat([option])}));
     }
 
     handlePick() {
@@ -41,7 +81,7 @@ class IndecisionApp extends React.Component {
             <div>
                 <Header subTitle={subTitle}/>
                 <Action hasOption={!!this.state.options.length} handlePick={this.handlePick} />
-                <Options options={this.state.options} handleDeleteOptions={this.handleDeleteOptions} />
+                <Options options={this.state.options} handleDeleteOptions={this.handleDeleteOptions} handleDeleteOption={this.handleDeleteOption} />
                 <AddOption handleAddOption={this.handleAddOption}/>
             </div>
         );
@@ -132,8 +172,9 @@ const Options = (props) => {
     return (  
         <div>
             <button onClick={props.handleDeleteOptions}>Remove All</button>
+            {props.options.length === 0 && <p>Please add an option to get started!</p>}
             {'Options Length: ' + props.options.length} {
-                props.options.length && props.options.map((optionText) => <Option key={optionText} optionText={optionText} />)
+                props.options.length && props.options.map((optionText) => <Option key={optionText} optionText={optionText} handleDeleteOption={props.handleDeleteOption} />)
             }
         </div>
     );
@@ -153,6 +194,12 @@ const Option = (props) => {
     return (
         <div>
             <p>{props.optionText}</p>
+            <button onClick={ (e) => {
+                props.handleDeleteOption(props.optionText);
+            }
+            }>
+                Remove
+            </button>
         </div>
     );
 }
@@ -170,10 +217,10 @@ class AddOption extends React.Component {
         e.preventDefault();
         const option = e.target.elements.option.value.trim();
         const error = this.props.handleAddOption(option);
-        this.setState(() => {
-            // if key and value has same name
-            return { error };
-        });
+        this.setState(() => ({error}));
+        if(!error) {
+            e.target.elements.option.value = '';
+        }
     }
 
     render() {
