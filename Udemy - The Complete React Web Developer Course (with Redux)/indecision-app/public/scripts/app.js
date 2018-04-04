@@ -26,7 +26,42 @@ var IndecisionApp = function (_React$Component) {
         return _this;
     }
 
+    /**
+     * Component Lifecycle Methods
+     */
+
+    /**
+     * invoked immediately after a component is mounted to the DOM
+     */
+
+
     _createClass(IndecisionApp, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            console.log('componentDidMount');
+        }
+
+        /**
+         * Fires after the component updates (When props or state values get changed)
+         * Gives two parameter prevProps and prevState
+         */
+
+    }, {
+        key: 'componentDidUpdate',
+        value: function componentDidUpdate(prevProps, prevState) {
+            console.log('componentDidUpdate');
+        }
+
+        /**
+         * Called when a component is being removed from the DOM
+         */
+
+    }, {
+        key: 'componentWillUnmount',
+        value: function componentWillUnmount() {
+            console.log('componentWillUnmount');
+        }
+    }, {
         key: 'handleDeleteOptions',
         value: function handleDeleteOptions() {
             this.setState(function () {

@@ -9,6 +9,33 @@ class IndecisionApp extends React.Component {
             options: props.options
         };
     }
+
+    /**
+     * Component Lifecycle Methods
+     */
+
+     /**
+      * invoked immediately after a component is mounted to the DOM
+      */
+    componentDidMount() {
+        console.log('componentDidMount');
+    }
+
+    /**
+     * Fires after the component updates (When props or state values get changed)
+     * Gives two parameter prevProps and prevState
+     */
+    componentDidUpdate(prevProps, prevState) {
+        console.log('componentDidUpdate');
+    }
+
+    /**
+     * Called when a component is being removed from the DOM
+     */
+    componentWillUnmount() {
+        console.log('componentWillUnmount');
+    }
+
     handleDeleteOptions() {
         this.setState(()=> ({ options: [] }));
     }
