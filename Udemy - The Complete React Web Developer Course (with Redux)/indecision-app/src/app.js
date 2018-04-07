@@ -1,8 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import IndecisionApp from './components/IndecisionApp';
 
-const template = <p>This is JSX from webpack.</p>;
-// Here we don't have support for JSX
-// const template = React.createElement("p", {}, 'testing');
-
-ReactDOM.render(template, document.getElementById('app'));
+ReactDOM.render(<IndecisionApp />, document.getElementById('app'));
