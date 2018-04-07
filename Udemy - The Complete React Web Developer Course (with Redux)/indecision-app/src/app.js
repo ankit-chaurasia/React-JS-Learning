@@ -1,7 +1,8 @@
-// import './utils.js';
-import subtract, { square, add } from './utils.js'
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-console.log('app.js is running');
-console.log(square(4));
-console.log(add(4,5))
-console.log(subtract(4,5))
+// const template = <p>Testing</p>;
+// Here we don't have support for JSX
+const template = React.createElement("p", {}, 'testing');
+
+ReactDOM.render(template, document.getElementById('app'));
