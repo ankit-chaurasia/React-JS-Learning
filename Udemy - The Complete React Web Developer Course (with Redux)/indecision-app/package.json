@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "serve": "live-server public/",
-    "build": "webpack --watch",
-    "build-babel": "babel src/app.js --out-file=public/scripts/app.js --presets=env,react --watch"
+    "build": "webpack",
+    "dev-server": "webpack-dev-server"
   },
   "author": "Ankit Chaurasia",
   "license": "ISC",
@@ -20,7 +20,8 @@
     "live-server": "^1.2.0",
     "validator": "^9.4.1",
     "webpack": "^4.5.0",
-    "webpack-cli": "^2.0.14"
+    "webpack-cli": "^2.0.14",
+    "webpack-dev-server": "^3.1.2"
   },
   "dependencies": {
     "react": "^16.3.1",
