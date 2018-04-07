@@ -5,25 +5,11 @@ import Action from './Action';
 import Header from './Header';
 
 export default class IndecisionApp extends React.Component {
-    constructor(props) {
-        super(props);
-        this.handleDeleteOptions = this.handleDeleteOptions.bind(this);
-        this.handlePick = this.handlePick.bind(this);
-        this.handleAddOption = this.handleAddOption.bind(this);
-        this.handleDeleteOption = this.handleDeleteOption.bind(this);
-        this.state = {
-            options: props.options
-        };
-    }
+    state = {
+        options: []
+    };
 
-    /**
-     * Component Lifecycle Methods
-     */
-
-     /**
-      * invoked immediately after a component is mounted to the DOM
-      */
-    componentDidMount() {
+    componentDidMount = () => {
         try {
             const json = localStorage.getItem('options');
             const options = JSON.parse(json);
@@ -35,11 +21,7 @@ export default class IndecisionApp extends React.Component {
         }
     }
 
-    /**
-     * Fires after the component updates (When props or state values get changed)
-     * Gives two parameter prevProps and prevState
-     */
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate = (prevProps, prevState) => {
         if(prevState.options.length !== this.state.options.length) {
             const json = JSON.stringify(this.state.options);
             localStorage.setItem('options', json);
@@ -47,18 +29,15 @@ export default class IndecisionApp extends React.Component {
         }
     }
 
-    /**
-     * Called when a component is being removed from the DOM
-     */
-    componentWillUnmount() {
+    componentWillUnmount = () => {
         console.log('componentWillUnmount');
     }
 
-    handleDeleteOptions() {
+    handleDeleteOptions = () => {
         this.setState(()=> ({ options: [] }));
     }
 
-    handleDeleteOption(optionToRemove) {
+    handleDeleteOption = (optionToRemove) => {
         this.setState((prevState) => {
             return {
                 options: prevState.options.filter((option) => optionToRemove !== option)
@@ -66,7 +45,7 @@ export default class IndecisionApp extends React.Component {
         });
     }
 
-    handleAddOption(option) {
+    handleAddOption = (option) => {
         if(!option) {
             return 'Enter valid value to add item';
         } else if(this.state.options.indexOf(option) > -1) {
@@ -75,7 +54,7 @@ export default class IndecisionApp extends React.Component {
         this.setState((prevState) => ({options: prevState.options.concat([option])}));
     }
 
-    handlePick() {
+    handlePick = () => {
         const randonNum = Math.floor(Math.random() * this.state.options.length);
         const option = this.state.options[randonNum];
         alert(option);
