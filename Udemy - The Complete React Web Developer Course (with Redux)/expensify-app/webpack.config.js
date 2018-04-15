@@ -1,7 +1,7 @@
 const path = require("path");
 
 module.exports = {
-  entry: "./src/playground/redux-101.js", // Entry point for webpack
+  entry: "./src/playground/redux-expensify.js", // Entry point for webpack
   output: {
     path: path.join(__dirname, "public"), // absolute path where you want to output your file
     filename: "bundle.js"
