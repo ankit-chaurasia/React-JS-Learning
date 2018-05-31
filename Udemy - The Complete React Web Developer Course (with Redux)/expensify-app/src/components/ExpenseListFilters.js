@@ -26,6 +26,7 @@ class ExpenseListFilters extends React.Component {
   render() {
     return (
       <div>
+        Dashboard page
         <input
           type="text"
           value={this.props.filters.text}
