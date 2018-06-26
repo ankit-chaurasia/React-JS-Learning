@@ -29,6 +29,7 @@
 
 .list {
   padding: 10px;
+  height: calc(100vh - 210px)
 }
 
 .row { 
@@ -46,3 +47,4 @@
 .content {
   padding: 10px;
 }
+

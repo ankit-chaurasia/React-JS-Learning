@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import loremIpsum from 'lorem-ipsum';
-import { List } from "react-virtualized";
+import { List, AutoSizer, CellMeasurer, CellMeasurerCache } from "react-virtualized";
 
 const rowCount = 1000;
 
@@ -11,30 +11,41 @@ class App extends Component {
     super();
     this.list = Array(rowCount).fill().map((val, idx) => {
       return {
-        id: idx, 
+        id: idx,
         name: 'John Doe',
         image: 'http://via.placeholder.com/40',
         text: loremIpsum({
-          count: 1, 
+          count: 1,
           units: 'sentences',
-          sentenceLowerBound: 4,
-          sentenceUpperBound: 8 
+          sentenceLowerBound: 10,
+          sentenceUpperBound: 100
         })
       }
     });
+    this.cache = new CellMeasurerCache({
+      fixedWidth: true,
+      defaultHeight: 100
+    });
   }
 
-  renderRow = ({ index, key, style }) => {
+  renderRow = ({ index, key, style, parent }) => {
     return (
-      <div key={key} style={style} className="row">
-        <div className="image">
-          <img src={this.list[index].image} alt="" />
+      <CellMeasurer
+        key={key}
+        cache={this.cache}
+        parent={parent}
+        columnIndex={0}
+        rowIndex={index}>
+        <div style={style} className="row">
+          <div className="image">
+            <img src={this.list[index].image} alt="" />
+          </div>
+          <div className="content">
+            <div>{this.list[index].name}</div>
+            <div>{this.list[index].text}</div>
+          </div>
         </div>
-        <div className="content">
-          <div>{this.list[index].name}</div>
-          <div>{this.list[index].text}</div>
-        </div>
-      </div>
+      </CellMeasurer>
     );
   }
 
@@ -50,12 +61,21 @@ class App extends Component {
           <h1 className="App-title">Welcome to React</h1>
         </header>
         <div className="list">
-          <List
-            width={rowWidth}
-            height={listHeight}
-            rowHeight={rowHeight}
-            rowRenderer={this.renderRow}
-            rowCount={this.list.length} />
+          <AutoSizer>
+            {
+              ({ width, height }) => {
+                return <List
+                  width={width}
+                  height={height}
+                  deferredMeasurementCache={this.cache}
+                  rowHeight={this.cache.rowHeight}
+                  rowRenderer={this.renderRow}
+                  rowCount={this.list.length}
+                  overscanRowCount={3} />
+              }
+            }
+          </AutoSizer>
+
         </div>
       </div>
     );
