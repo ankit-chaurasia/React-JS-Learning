@@ -41,6 +41,8 @@ class DishDetails extends Component {
                     </ul>
                 </div>
             );
+        } else {
+            return (<div></div>);
         }
     };
 
