@@ -10,6 +10,7 @@ import {
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import CommentForm from './CommentFormComponent';
+import { Loading } from './LoadingComponent';
 
 const RenderDish = (props) => {
     const dish = props.dish;
@@ -26,7 +27,7 @@ const RenderDish = (props) => {
     );
 };
 
-const RenderComments = ({comments, addComment, dishId}) => {
+const RenderComments = ({ comments, addComment, dishId }) => {
     if (comments) {
         return (
             <div className="col-12 col-md-5 m-1">
@@ -59,7 +60,25 @@ const RenderComments = ({comments, addComment, dishId}) => {
 };
 
 const DishDetails = (props) => {
-    if (props.dish) {
+    if (props.isLoading) {
+        return (
+            <div className="container">
+                <div className="row">
+                    <Loading />
+                </div>
+            </div>
+        );
+    }
+    else if (props.errMess) {
+        return (
+            <div className="container">
+                <div className="row">
+                    <h4>{props.errMess}</h4>
+                </div>
+            </div>
+        );
+    }
+    else if (props.dish) {
         return (
             <div className="container">
                 <div className="row">
