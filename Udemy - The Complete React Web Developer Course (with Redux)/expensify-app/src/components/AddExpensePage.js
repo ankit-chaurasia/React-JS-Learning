@@ -5,7 +5,7 @@ import ExpenseForm from './ExpenseForm';
 
 export const AddExpensePage = props => {
   const onSubmit = expense => {
-    props.onSubmit(expense);
+    props.addExpense(expense);
     props.history.push('/');
   };
   return (
@@ -17,7 +17,7 @@ export const AddExpensePage = props => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  onSubmit: expense => dispatch(addExpense(expense))
+  addExpense: expense => dispatch(addExpense(expense))
 });
 
 export default connect(undefined, mapDispatchToProps)(AddExpensePage);
