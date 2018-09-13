@@ -24,7 +24,7 @@
     "jest": "^23.1.0",
     "live-server": "^1.2.0",
     "moment": "^2.22.1",
-    "node-sass": "^4.8.3",
+    "node-sass": "^4.9.3",
     "normalize.css": "^8.0.0",
     "react-addons-shallow-compare": "^15.6.2",
     "react-dates": "^16.6.1",
